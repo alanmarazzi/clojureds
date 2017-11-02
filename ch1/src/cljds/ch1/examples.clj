@@ -310,3 +310,33 @@
         (c/add-lines (keys ru) (vals ru)
                      :series-label "Russia")
         (i/view))))
+
+; Scatter plots
+(defn ex-1-33
+  []
+  (let [data (load-data :uk-victors)]
+    (-> (c/scatter-plot (i/$ :turnout data)
+                        (i/$ :victors-share data)
+                        :x-label "Turnout"
+                        :y-label "Victor's share")
+        (i/view))))
+
+(defn ex-1-34
+  []
+  (let [data (load-data :ru-victors)]
+    (-> (c/scatter-plot (i/$ :turnout data) 
+                        (i/$ :victors-share data)
+                        :x-label "Turnout"
+                        :y-label "Victor's share")
+        (i/view))))
+
+(defn ex-1-35
+  []
+  (let [data (-> (load-data :ru-victors)
+                 (s/sample :size 10000))]
+    (-> (c/scatter-plot (i/$ :turnout data)
+                        (i/$ :victors-share data)
+                        :x-label "Turnout"
+                        :y-label "Victor's share")
+        (c/set-alpha 0.05)
+        (i/view))))
