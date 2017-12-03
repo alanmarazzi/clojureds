@@ -166,3 +166,156 @@
         b (get data 1)]
     (t-test a b)))
 
+(defn ex-2-17
+  []
+  (let [data (->> (load-data "new-site.tsv")
+                  (:rows)
+                  (group-by :site)
+                  (map-vals (partial map :dwell-time)))
+        a (get data 0)
+        b (get data 1)]
+    (clojure.pprint/pprint (s/t-test a :y b))))
+
+(defn ex-2-18
+  []
+  (let [data (->> (load-data "new-site.tsv")
+                  (:rows)
+                  (group-by :site)
+                  (map-vals (partial map :dwell-time)))
+        b (get data 1)]
+    (clojure.pprint/pprint (s/t-test b :mu 90))))
+
+(defn ex-2-19
+  []
+  (let [data (->> (load-data "new-site.tsv")
+                  (i/$where {:site {:$eq 1}})
+                  (i/$ :dwell-time))]
+    (-> (s/bootstrap data s/mean :size 10000)
+        (c/histogram :nbins 20
+                     :x-label "Bootstrapped mean")
+        (i/view))))
+
+; Multivariate testing
+(defn ex-2-20
+  "Check all 20 tested sites data"
+  []
+  (->> (i/transform-col (load-data "multiple-sites.tsv")
+                        :dwell-time float)
+       (i/$rollup :mean :dwell-time :site)
+       (i/$order :dwell-time :desc)
+       (i/view)))
+
+(defn ex-2-21
+  "Bad idea: compare every site with every other to look
+  for significance. It is sure we are going to find it."
+  []
+  (let [data (->> (load-data "multiple-sites.tsv")
+                  (:rows)
+                  (group-by :site)
+                  (map-vals (partial map :dwell-time)))
+        alpha 0.05]
+    (doseq [[site-a times-a] data
+            [site-b times-b]data
+            :when (> site-a site-b)
+            :let [p-val (-> (s/t-test times-a :y times-b)
+                            (:p-value))]]
+      (when (< p-val alpha)
+        (println site-b "and" site-a "are significantly different:"
+                 (format "%.3f" p-val))))))
+
+(defn ex-2-22
+  "This is only slightly better, since the p-value is 0.05
+  it is likely that at least 1 of the results will be wrong anyway"
+  []
+  (let [data (->> (load-data "multiple-sites.tsv")
+                  (:rows)
+                  (group-by :site)
+                  (map-vals (partial map :dwell-time)))
+        baseline (get data 0)
+        alpha 0.05]
+    (doseq [[site-a times-a] data
+            :let [p-val (-> (s/t-test times-a :y baseline)
+                            (:p-value))]]
+      (when (< p-val alpha)
+        (println site-a "is significantly different from baseline:"
+                 (format "%.3f" p-val))))))
+
+; Multiple Comparisons
+
+;; Bonferroni correction
+
+(defn ex-2-23
+  "Correct for multiple comparisons with alpha = 0.05/n
+  where n is equal to the number of comparisons"
+  []
+  (let [data (->> (load-data "multiple-sites.tsv")
+                  (:rows)
+                  (group-by :site)
+                  (map-vals (partial map :dwell-time)))
+        alpha (/ 0.05 (count data))]
+    (doseq [[site-a times-a] data
+            [site-b times-b] data
+            :when (> site-a site-b)
+            :let [p-val (-> (s/t-test times-a :y times-b)
+                            (:p-value))]]
+      (when (< p-val alpha)
+        (println site-b "and" site-a
+                 "are significantly different:"
+                 (format "%.3f" p-val))))))
+
+;; ANOVA
+
+(defn ex-2-24
+  []
+  (let [grouped (->> (load-data "multiple-sites.tsv")
+                     (:rows)
+                     (group-by :site)
+                     (vals)
+                     (map (partial map :dwell-time)))]
+    (f-test grouped)))
+
+(defn ex-2-25
+  []
+  (let [grouped (->> (load-data "multiple-sites.tsv")
+                     (:rows)
+                     (group-by :site)
+                     (sort-by first)
+                     (map second)
+                     (map (partial map :dwell-time)))
+        box-plot (c/box-plot (first grouped)
+                             :x-label "Site number"
+                             :y-label "Dwell time (s)")
+        add-box (fn [chart dwell-times]
+                  (c/add-box-plot chart dwell-times))]
+    (-> (reduce add-box box-plot (rest grouped))
+        (i/view))))
+
+(defn ex-2-26
+  []
+  (let [data (load-data "multiple-sites.tsv")
+        site-0 (->> (i/$where {:site {:$eq 0}} data)
+                    (i/$ :dwell-time))
+        site-10 (->> (i/$where {:site {:$eq 10}} data)
+                     (i/$ :dwell-time))]
+    (s/t-test site-10 :y site-0)))
+
+(defn ex-2-27
+  []
+  (let [data (load-data "multiple-sites.tsv")
+        site-0 (->> (i/$where {:site {:$eq 0}} data)
+                    (i/$ :dwell-time))
+        site-6 (->> (i/$where {:site {:$eq 6}} data)
+                    (i/$ :dwell-time))]
+    (:p-value (s/t-test site-6 :y site-0))))
+
+(defn ex-2-28
+  []
+  (let [data (load-data "multiple-sites.tsv")
+        a (->> (i/$where {:site {:$eq 0}} data)
+               (i/$ :dwell-time))
+        b (->> (i/$where {:site {:$eq 6}} data)
+               (i/$ :dwell-time))]
+    (/ (- (s/mean b)
+          (s/mean a))
+       (pooled-standard-deviation a b))))
+
