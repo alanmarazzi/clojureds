@@ -54,3 +54,43 @@
     (for [a (keys as)
           b (keys bs)]
       (get-in actual [a b]))))
+
+(defn add-dummy
+  [column-name from-column value dataset]
+  (i/add-derived-column column-name
+                        [from-column]
+                        #(if (= % value) 1 0)
+                        dataset))
+
+(defn matrix-dataset
+  []
+  (->> (load-data "titanic.tsv")
+       (add-dummy :dummy-survived :survived "y")
+       (i/add-column :bias (repeat 1.0))
+       (add-dummy :dummy-mf :sex "male")
+       (add-dummy :dummy-1 :pclass "first")
+       (add-dummy :dummy-2 :pclass "second")
+       (add-dummy :dummy-3 :pclass "third")
+       (i/$ [:dummy-survived :bias :dummy-mf
+             :dummy-1 :dummy-2 :dummy-3])
+       (i/to-matrix)))
+
+(defn age-categories
+  [age]
+  (cond
+    (nil? age) "unknown"
+    (< age 13) "child"
+    :default "adult"))
+
+(defn to-weka
+  [dataset]
+  (let [attributes [{:survived ["y" "n"]}
+                    {:pclass ["first" "second" "third"]}
+                    {:sex ["male" "female"]}
+                    :age
+                    :fare]
+        vectors (->> dataset
+                     (i/$ [:survived :pclass :sex :age :fare])
+                     (i/to-vect))]
+    (mld/make-dataset :titanic-weka attributes vectors
+                      {:class :survived})))

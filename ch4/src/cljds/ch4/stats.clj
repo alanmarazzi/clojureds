@@ -33,3 +33,54 @@
             (/ (i/sq (- observed expected)) expected))]
     (reduce + (map f observed expected))))
 
+(defn confusion-matrix
+  [ys y-hats]
+  (let [classes (into #{} (concat ys y-hats))
+        confusion (frequencies (map vector ys y-hats))]
+    (i/dataset (cons nil classes)
+               (for [x classes]
+                 (cons x
+                       (for [y classes]
+                         (get confusion [x y])))))))
+
+(defn kappa-statistic [ys y-hats]
+  (let [n (count ys)
+        test-class (first ys)
+        pa  (/ (count (filter true? (map = ys y-hats))) n)
+        ey  (/ (count (filter #(= test-class %) ys)) n)
+        eyh (/ (count (filter #(= test-class %) y-hats)) n)
+        pe (+ (* ey eyh)
+              (* (- 1 ey)
+                 (- 1 eyh)))]
+    (float (/ (- pa pe)
+              (- 1 pe)))))
+
+(defn information
+  [p]
+  (- (i/log2 p)))
+
+(defn entropy
+  [xs]
+  (let [n (count xs)
+        f (fn [x]
+            (let [p (/ x n)]
+              (* p (information p))))]
+    (->> (frequencies xs)
+         (vals)
+         (map f)
+         (reduce +))))
+
+(defn weighted-entropy
+  [groups]
+  (let [n (count (apply concat groups))
+        e (fn [group]
+            (* (entropy group)
+               (/ (count group) n)))]
+    (->> (map e groups)
+         (reduce +))))
+
+(defn information-gain
+  [groups]
+  (- (entropy (apply concat groups))
+     (weighted-entropy groups)))
+
