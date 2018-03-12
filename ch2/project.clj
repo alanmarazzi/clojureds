@@ -9,9 +9,11 @@
                  [clj-time "0.14.2"]
                  [b1 "0.3.3"]
                  [reagent "0.7.0"]
-                 [org.clojure/tools.namespace "0.2.11"]]
+                 [org.clojure/tools.namespace "0.2.11"]
+                 [incanter-gorilla "0.1.0"]]
   :resource-paths ["data"]
-  :plugins [[lein-cljsbuild "1.1.7"]]
+  :plugins [[lein-cljsbuild "1.1.7"]
+            [lein-gorilla "0.4.0"]]
   :aot [cljds.ch2.core]
   :main cljds.ch2.core
   :repl-options {:init-ns cljds.ch2.examples}

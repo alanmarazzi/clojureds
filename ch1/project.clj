@@ -14,4 +14,4 @@
   :plugins [[lein-gorilla "0.4.0"]]
   :repl-options {:init-ns cljds.ch1.examples}
   :profiles {:dev {:dependencies [[org.clojure/tools.cli "0.3.1"]]}})
-  :jvm-opts ["-Xmx1G"]
+  :jvm-opts ["-Xmx2G"]
