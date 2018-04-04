@@ -1,14 +1,5 @@
 # ch5
 
-A Clojure library designed to ... well, that part is up to you.
+## Gorilla WS
 
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2017 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+http://viewer.gorilla-repl.org/view.html?source=github&user=alanmarazzi&repo=clojureds&path=ch5/src/cljds/ch5/ws.clj
