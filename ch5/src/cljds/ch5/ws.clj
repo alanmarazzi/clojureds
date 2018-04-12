@@ -13,10 +13,10 @@
             [incanter.charts :as c]
             [incanter.core :as i]
             [iota]
-            ;[parkour.conf :as conf]
-            ;[parkour.io.text :as text]
+            [parkour.conf :as conf]
+            [parkour.io.text :as text]
             [tesser.core :as t]
-            ;[tesser.hadoop :as h]
+            [tesser.hadoop :as h]
             [tesser.math :as m]
 			[incanter.svg :as svg])
   (:use [clojure.repl :only [doc source]]))
@@ -62,7 +62,7 @@
       (count)))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 725.228 msecs&quot;
+;;; &quot;Elapsed time: 409.792 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -85,7 +85,7 @@
                    (inc i)))))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 368.439 msecs&quot;
+;;; &quot;Elapsed time: 613.084 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -127,7 +127,7 @@
                    (inc i)))))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 360.325 msecs&quot;
+;;; &quot;Elapsed time: 320.514 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -168,7 +168,7 @@
        (into [])))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 11.785 msecs&quot;
+;;; &quot;Elapsed time: 14.771 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -273,7 +273,7 @@
        (count xs))))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 21834.629 msecs&quot;
+;;; &quot;Elapsed time: 18263.729 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -309,7 +309,7 @@
                mean-reducer)))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 2204.521 msecs&quot;
+;;; &quot;Elapsed time: 1947.255 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -334,7 +334,7 @@
        (mean-post-combiner)))
 ;; @@
 ;; ->
-;;; &quot;Elapsed time: 2028.566 msecs&quot;
+;;; &quot;Elapsed time: 2007.113 msecs&quot;
 ;;; 
 ;; <-
 ;; =>
@@ -503,7 +503,7 @@
        (t/tesser (chunks data))))
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-double'>0.35378378685923106</span>","value":"0.35378378685923106"}
+;;; {"type":"html","content":"<span class='clj-double'>0.3537837868592311</span>","value":"0.3537837868592311"}
 ;; <=
 
 ;; **
@@ -526,7 +526,7 @@
 ;; ->
 ;;; -------------------------
 ;;; tesser.core/fuse
-;;; ([fold-map] [fold-map fold__12147__auto__])
+;;; ([fold-map] [fold-map fold__12044__auto__])
 ;;;   You&#x27;ve got several folds, and want to execute them in one pass. Fuse is the
 ;;;   function for you! It takes a map from keys to folds, like
 ;;; 
@@ -560,7 +560,7 @@
 ;;;   and opaque.
 ;;; -------------------------
 ;;; tesser.core/facet
-;;; ([] [fold__12147__auto__])
+;;; ([] [fold__12044__auto__])
 ;;;   Your inputs are maps, and you want to apply a fold to each value
 ;;;   independently. Facet generalizes a fold over a single value to operate on
 ;;;   maps of keys to those values, returning a map of keys to the results of the
@@ -596,7 +596,7 @@
        (t/tesser (chunks data))))
 ;; @@
 ;; =>
-;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200-mean</span>","value":":A00200-mean"},{"type":"html","content":"<span class='clj-double'>37290.58880658831</span>","value":"37290.58880658831"}],"value":"[:A00200-mean 37290.58880658831]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200-sd</span>","value":":A00200-sd"},{"type":"html","content":"<span class='clj-double'>89965.99846545045</span>","value":"89965.99846545045"}],"value":"[:A00200-sd 89965.99846545045]"}],"value":"{:A00200-mean 37290.58880658831, :A00200-sd 89965.99846545045}"}
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200-mean</span>","value":":A00200-mean"},{"type":"html","content":"<span class='clj-double'>37290.58880658831</span>","value":"37290.58880658831"}],"value":"[:A00200-mean 37290.58880658831]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200-sd</span>","value":":A00200-sd"},{"type":"html","content":"<span class='clj-double'>89965.99846545044</span>","value":"89965.99846545044"}],"value":"[:A00200-sd 89965.99846545044]"}],"value":"{:A00200-mean 37290.58880658831, :A00200-sd 89965.99846545044}"}
 ;; <=
 
 ;; @@
@@ -635,7 +635,7 @@
        (t/tesser (chunks data))))
 ;; @@
 ;; =>
-;;; {"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-double'>258.6190515572913</span>","value":"258.6190515572913"},{"type":"html","content":"<span class='clj-double'>0.004319040679946289</span>","value":"0.004319040679946289"}],"value":"[258.6190515572913 0.004319040679946289]"}
+;;; {"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-double'>258.6190515572913</span>","value":"258.6190515572913"},{"type":"html","content":"<span class='clj-double'>0.00431904067994629</span>","value":"0.00431904067994629"}],"value":"[258.6190515572913 0.00431904067994629]"}
 ;; <=
 
 ;; **
@@ -655,26 +655,26 @@
        (clojure.pprint/pprint)))
 ;; @@
 ;; ->
-;;; {[:salary :dependents] 0.5377718342369946,
-;;;  [:submissions :unemployment] 0.6025773943975872,
-;;;  [:submissions :income] -0.028202512657224954,
-;;;  [:submissions :dependents] 0.7718554814702941,
-;;;  [:income :unemployment] -0.27477864920971695,
-;;;  [:unemployment :income] -0.27477864920971695,
-;;;  [:salary :submissions] 0.7780779140465943,
-;;;  [:dependents :income] -0.20312748087736157,
-;;;  [:unemployment :salary] 0.3537837868592312,
-;;;  [:dependents :unemployment] 0.8211733976776759,
-;;;  [:dependents :salary] 0.5377718342369946,
-;;;  [:submissions :salary] 0.7780779140465943,
-;;;  [:income :dependents] -0.20312748087736157,
-;;;  [:salary :income] 0.11888262708520696,
-;;;  [:unemployment :submissions] 0.6025773943975872,
-;;;  [:dependents :submissions] 0.7718554814702941,
-;;;  [:income :submissions] -0.028202512657224954,
-;;;  [:salary :unemployment] 0.3537837868592312,
-;;;  [:unemployment :dependents] 0.8211733976776759,
-;;;  [:income :salary] 0.11888262708520696}
+;;; {[:salary :dependents] 0.5377718342369948,
+;;;  [:submissions :unemployment] 0.6025773943975866,
+;;;  [:submissions :income] -0.02820251265722494,
+;;;  [:submissions :dependents] 0.771855481470294,
+;;;  [:income :unemployment] -0.2747786492097166,
+;;;  [:unemployment :income] -0.2747786492097166,
+;;;  [:salary :submissions] 0.7780779140465942,
+;;;  [:dependents :income] -0.2031274808773614,
+;;;  [:unemployment :salary] 0.35378378685923123,
+;;;  [:dependents :unemployment] 0.8211733976776756,
+;;;  [:dependents :salary] 0.5377718342369948,
+;;;  [:submissions :salary] 0.7780779140465942,
+;;;  [:income :dependents] -0.2031274808773614,
+;;;  [:salary :income] 0.11888262708520698,
+;;;  [:unemployment :submissions] 0.6025773943975866,
+;;;  [:dependents :submissions] 0.771855481470294,
+;;;  [:income :submissions] -0.02820251265722494,
+;;;  [:salary :unemployment] 0.35378378685923123,
+;;;  [:unemployment :dependents] 0.8211733976776756,
+;;;  [:income :salary] 0.11888262708520698}
 ;;; 
 ;; <-
 ;; =>
@@ -706,7 +706,7 @@
        (t/tesser (chunks data))))
 ;; @@
 ;; =>
-;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A02300</span>","value":":A02300"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>419.67862159209596</span>","value":"419.67862159209596"}],"value":"[:mean 419.67862159209596]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1098.3237615539792</span>","value":"1098.3237615539792"}],"value":"[:sd 1098.3237615539792]"}],"value":"{:mean 419.67862159209596, :sd 1098.3237615539792}"}],"value":"[:A02300 {:mean 419.67862159209596, :sd 1098.3237615539792}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200</span>","value":":A00200"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>37290.58880658831</span>","value":"37290.58880658831"}],"value":"[:mean 37290.58880658831]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>89965.99846545044</span>","value":"89965.99846545044"}],"value":"[:sd 89965.99846545044]"}],"value":"{:mean 37290.58880658831, :sd 89965.99846545044}"}],"value":"[:A00200 {:mean 37290.58880658831, :sd 89965.99846545044}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:AGI_STUB</span>","value":":AGI_STUB"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>3.499939975269811</span>","value":"3.499939975269811"}],"value":"[:mean 3.499939975269811]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1.7079052308118514</span>","value":"1.7079052308118514"}],"value":"[:sd 1.7079052308118514]"}],"value":"{:mean 3.499939975269811, :sd 1.7079052308118514}"}],"value":"[:AGI_STUB {:mean 3.499939975269811, :sd 1.7079052308118514}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:NUMDEP</span>","value":":NUMDEP"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>581.8504423822615</span>","value":"581.8504423822615"}],"value":"[:mean 581.8504423822615]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1309.1973488789336</span>","value":"1309.1973488789336"}],"value":"[:sd 1309.1973488789336]"}],"value":"{:mean 581.8504423822615, :sd 1309.1973488789336}"}],"value":"[:NUMDEP {:mean 581.8504423822615, :sd 1309.1973488789336}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:MARS2</span>","value":":MARS2"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>317.0412009748016</span>","value":"317.0412009748016"}],"value":"[:mean 317.0412009748016]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>533.4496892658645</span>","value":"533.4496892658645"}],"value":"[:sd 533.4496892658645]"}],"value":"{:mean 317.0412009748016, :sd 533.4496892658645}"}],"value":"[:MARS2 {:mean 317.0412009748016, :sd 533.4496892658645}]"}],"value":"{:A02300 {:mean 419.67862159209596, :sd 1098.3237615539792}, :A00200 {:mean 37290.58880658831, :sd 89965.99846545044}, :AGI_STUB {:mean 3.499939975269811, :sd 1.7079052308118514}, :NUMDEP {:mean 581.8504423822615, :sd 1309.1973488789336}, :MARS2 {:mean 317.0412009748016, :sd 533.4496892658645}}"}
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A02300</span>","value":":A02300"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>419.67862159209596</span>","value":"419.67862159209596"}],"value":"[:mean 419.67862159209596]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1098.3237615539795</span>","value":"1098.3237615539795"}],"value":"[:sd 1098.3237615539795]"}],"value":"{:mean 419.67862159209596, :sd 1098.3237615539795}"}],"value":"[:A02300 {:mean 419.67862159209596, :sd 1098.3237615539795}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200</span>","value":":A00200"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>37290.58880658831</span>","value":"37290.58880658831"}],"value":"[:mean 37290.58880658831]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>89965.99846545048</span>","value":"89965.99846545048"}],"value":"[:sd 89965.99846545048]"}],"value":"{:mean 37290.58880658831, :sd 89965.99846545048}"}],"value":"[:A00200 {:mean 37290.58880658831, :sd 89965.99846545048}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:AGI_STUB</span>","value":":AGI_STUB"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>3.499939975269811</span>","value":"3.499939975269811"}],"value":"[:mean 3.499939975269811]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1.7079052308118514</span>","value":"1.7079052308118514"}],"value":"[:sd 1.7079052308118514]"}],"value":"{:mean 3.499939975269811, :sd 1.7079052308118514}"}],"value":"[:AGI_STUB {:mean 3.499939975269811, :sd 1.7079052308118514}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:NUMDEP</span>","value":":NUMDEP"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>581.8504423822615</span>","value":"581.8504423822615"}],"value":"[:mean 581.8504423822615]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1309.1973488789338</span>","value":"1309.1973488789338"}],"value":"[:sd 1309.1973488789338]"}],"value":"{:mean 581.8504423822615, :sd 1309.1973488789338}"}],"value":"[:NUMDEP {:mean 581.8504423822615, :sd 1309.1973488789338}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:MARS2</span>","value":":MARS2"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>317.0412009748016</span>","value":"317.0412009748016"}],"value":"[:mean 317.0412009748016]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>533.4496892658647</span>","value":"533.4496892658647"}],"value":"[:sd 533.4496892658647]"}],"value":"{:mean 317.0412009748016, :sd 533.4496892658647}"}],"value":"[:MARS2 {:mean 317.0412009748016, :sd 533.4496892658647}]"}],"value":"{:A02300 {:mean 419.67862159209596, :sd 1098.3237615539795}, :A00200 {:mean 37290.58880658831, :sd 89965.99846545048}, :AGI_STUB {:mean 3.499939975269811, :sd 1.7079052308118514}, :NUMDEP {:mean 581.8504423822615, :sd 1309.1973488789338}, :MARS2 {:mean 317.0412009748016, :sd 533.4496892658647}}"}
 ;; <=
 
 ;; @@
@@ -746,7 +746,7 @@
        first))
 ;; @@
 ;; =>
-;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A02300</span>","value":":A02300"},{"type":"html","content":"<span class='clj-double'>0.012128826557531716</span>","value":"0.012128826557531716"}],"value":"[:A02300 0.012128826557531716]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200</span>","value":":A00200"},{"type":"html","content":"<span class='clj-double'>-0.2443432983743327</span>","value":"-0.2443432983743327"}],"value":"[:A00200 -0.2443432983743327]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:AGI_STUB</span>","value":":AGI_STUB"},{"type":"html","content":"<span class='clj-double'>-1.4637463075638375</span>","value":"-1.4637463075638375"}],"value":"[:AGI_STUB -1.4637463075638375]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:NUMDEP</span>","value":":NUMDEP"},{"type":"html","content":"<span class='clj-double'>0.13607540358242254</span>","value":"0.13607540358242254"}],"value":"[:NUMDEP 0.13607540358242254]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:MARS2</span>","value":":MARS2"},{"type":"html","content":"<span class='clj-double'>-0.08818301317138241</span>","value":"-0.08818301317138241"}],"value":"[:MARS2 -0.08818301317138241]"}],"value":"{:A02300 0.012128826557531716, :A00200 -0.2443432983743327, :AGI_STUB -1.4637463075638375, :NUMDEP 0.13607540358242254, :MARS2 -0.08818301317138241}"}
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A02300</span>","value":":A02300"},{"type":"html","content":"<span class='clj-double'>0.012128826557531716</span>","value":"0.012128826557531716"}],"value":"[:A02300 0.012128826557531716]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200</span>","value":":A00200"},{"type":"html","content":"<span class='clj-double'>-0.24434329837433255</span>","value":"-0.24434329837433255"}],"value":"[:A00200 -0.24434329837433255]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:AGI_STUB</span>","value":":AGI_STUB"},{"type":"html","content":"<span class='clj-double'>-1.4637463075638375</span>","value":"-1.4637463075638375"}],"value":"[:AGI_STUB -1.4637463075638375]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:NUMDEP</span>","value":":NUMDEP"},{"type":"html","content":"<span class='clj-double'>0.13607540358242254</span>","value":"0.13607540358242254"}],"value":"[:NUMDEP 0.13607540358242254]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:MARS2</span>","value":":MARS2"},{"type":"html","content":"<span class='clj-double'>-0.08818301317138237</span>","value":"-0.08818301317138237"}],"value":"[:MARS2 -0.08818301317138237]"}],"value":"{:A02300 0.012128826557531716, :A00200 -0.24434329837433255, :AGI_STUB -1.4637463075638375, :NUMDEP 0.13607540358242254, :MARS2 -0.08818301317138237}"}
 ;; <=
 
 ;; @@
@@ -988,6 +988,146 @@
 ;; @@
 ;; =>
 ;;; {"type":"html","content":"<span class='clj-unkown'>#object[org.jfree.chart.ChartFrame 0x39fee707 &quot;org.jfree.chart.ChartFrame[frame0,1280,0,500x400,layout=java.awt.BorderLayout,title=Incanter Plot,resizable,normal,defaultCloseOperation=DISPOSE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,500x400,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]&quot;]</span>","value":"#object[org.jfree.chart.ChartFrame 0x39fee707 \"org.jfree.chart.ChartFrame[frame0,1280,0,500x400,layout=java.awt.BorderLayout,title=Incanter Plot,resizable,normal,defaultCloseOperation=DISPOSE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,500x400,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]\"]"}
+;; <=
+
+;; **
+;;; ## Hadoop
+;;; 
+;;; **Tesser** includes a `hadoop` namespace with a primary function: `fold`.
+;;; 
+;;; This `fold` function expects at least 4 args:
+;;; 
+;;; - **configuration** of the Hadoop job
+;;; - the **input file** to process
+;;; - a **working directory** to store intermediate files
+;;; - the **`fold`** to run
+;;; 
+;;; Any additional arguments will be passed to the `fold` at execution time.
+;;; 
+;;; We will use **Parkour** to input and output data to **Hadoop**
+;; **
+
+;; @@
+(->> (text/dseq "data/soi.csv")
+     (r/take 2)
+     (into []))
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-string'>&quot;STATEFIPS,STATE,zipcode,AGI_STUB,N1,MARS1,MARS2,MARS4,PREP,N2,NUMDEP,A00100,N00200,A00200,N00300,A00300,N00600,A00600,N00650,A00650,N00900,A00900,SCHF,N01000,A01000,N01400,A01400,N01700,A01700,N02300,A02300,N02500,A02500,N03300,A03300,N00101,A00101,N04470,A04470,N18425,A18425,N18450,A18450,N18500,A18500,N18300,A18300,N19300,A19300,N19700,A19700,N04800,A04800,N07100,A07100,N07220,A07220,N07180,A07180,N07260,A07260,N59660,A59660,N59720,A59720,N11070,A11070,N09600,A09600,N06500,A06500,N10300,A10300,N11901,A11901,N11902,A11902&quot;</span>","value":"\"STATEFIPS,STATE,zipcode,AGI_STUB,N1,MARS1,MARS2,MARS4,PREP,N2,NUMDEP,A00100,N00200,A00200,N00300,A00300,N00600,A00600,N00650,A00650,N00900,A00900,SCHF,N01000,A01000,N01400,A01400,N01700,A01700,N02300,A02300,N02500,A02500,N03300,A03300,N00101,A00101,N04470,A04470,N18425,A18425,N18450,A18450,N18500,A18500,N18300,A18300,N19300,A19300,N19700,A19700,N04800,A04800,N07100,A07100,N07220,A07220,N07180,A07180,N07260,A07260,N59660,A59660,N59720,A59720,N11070,A11070,N09600,A09600,N06500,A06500,N10300,A10300,N11901,A11901,N11902,A11902\""},{"type":"html","content":"<span class='clj-string'>&quot;01,AL,00000,1,889920.0000,490850.0000,129070.0000,256900.0000,526740.0000,1505430.0000,598680.0000,11517112.000,712630.0000,9014595.0000,116620.0000,101108.0000,49750.0000,92178.0000,43200.0000,59907.0000,150240.0000,873349.0000,9120.0000,35010.0000,-3916.0000,38910.0000,221795.0000,112470.0000,1072785.0000,65230.0000,265804.0000,34100.0000,59389.0000,260.0000,843.0000,62190.0000,968541.0000,62120.0000,850798.0000,24840.0000,23577.0000,29040.0000,23668.0000,33360.0000,27495.0000,60070.0000,90908.0000,31110.0000,181519.0000,46490.0000,121095.0000,356200.0000,1962972.0000,112340.0000,38443.0000,39440.0000,12168.0000,9920.0000,3393.0000,1680.0000,408.0000,406300.0000,1178852.0000,379060.0000,1071400.0000,266230.0000,335781.0000,0.0000,0.0000,269140.0000,168057.0000,387720.0000,314297.0000,59310.0000,40782.0000,785950.0000,2040191.0000&quot;</span>","value":"\"01,AL,00000,1,889920.0000,490850.0000,129070.0000,256900.0000,526740.0000,1505430.0000,598680.0000,11517112.000,712630.0000,9014595.0000,116620.0000,101108.0000,49750.0000,92178.0000,43200.0000,59907.0000,150240.0000,873349.0000,9120.0000,35010.0000,-3916.0000,38910.0000,221795.0000,112470.0000,1072785.0000,65230.0000,265804.0000,34100.0000,59389.0000,260.0000,843.0000,62190.0000,968541.0000,62120.0000,850798.0000,24840.0000,23577.0000,29040.0000,23668.0000,33360.0000,27495.0000,60070.0000,90908.0000,31110.0000,181519.0000,46490.0000,121095.0000,356200.0000,1962972.0000,112340.0000,38443.0000,39440.0000,12168.0000,9920.0000,3393.0000,1680.0000,408.0000,406300.0000,1178852.0000,379060.0000,1071400.0000,266230.0000,335781.0000,0.0000,0.0000,269140.0000,168057.0000,387720.0000,314297.0000,59310.0000,40782.0000,785950.0000,2040191.0000\""}],"value":"[\"STATEFIPS,STATE,zipcode,AGI_STUB,N1,MARS1,MARS2,MARS4,PREP,N2,NUMDEP,A00100,N00200,A00200,N00300,A00300,N00600,A00600,N00650,A00650,N00900,A00900,SCHF,N01000,A01000,N01400,A01400,N01700,A01700,N02300,A02300,N02500,A02500,N03300,A03300,N00101,A00101,N04470,A04470,N18425,A18425,N18450,A18450,N18500,A18500,N18300,A18300,N19300,A19300,N19700,A19700,N04800,A04800,N07100,A07100,N07220,A07220,N07180,A07180,N07260,A07260,N59660,A59660,N59720,A59720,N11070,A11070,N09600,A09600,N06500,A06500,N10300,A10300,N11901,A11901,N11902,A11902\" \"01,AL,00000,1,889920.0000,490850.0000,129070.0000,256900.0000,526740.0000,1505430.0000,598680.0000,11517112.000,712630.0000,9014595.0000,116620.0000,101108.0000,49750.0000,92178.0000,43200.0000,59907.0000,150240.0000,873349.0000,9120.0000,35010.0000,-3916.0000,38910.0000,221795.0000,112470.0000,1072785.0000,65230.0000,265804.0000,34100.0000,59389.0000,260.0000,843.0000,62190.0000,968541.0000,62120.0000,850798.0000,24840.0000,23577.0000,29040.0000,23668.0000,33360.0000,27495.0000,60070.0000,90908.0000,31110.0000,181519.0000,46490.0000,121095.0000,356200.0000,1962972.0000,112340.0000,38443.0000,39440.0000,12168.0000,9920.0000,3393.0000,1680.0000,408.0000,406300.0000,1178852.0000,379060.0000,1071400.0000,266230.0000,335781.0000,0.0000,0.0000,269140.0000,168057.0000,387720.0000,314297.0000,59310.0000,40782.0000,785950.0000,2040191.0000\"]"}
+;; <=
+
+;; **
+;;; As we stated previously, **Hadoop** needs a locatiom to write temporary files and since it will complain if the directory is not empty we will define a function that returns a random name
+;; **
+
+;; @@
+(defn rand-file
+  [path]
+  (io/file path (str (long (rand 0x100000000)))))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;cljds.ch5.ws/rand-file</span>","value":"#'cljds.ch5.ws/rand-file"}
+;; <=
+
+;; @@
+(let [conf (conf/ig)
+      input (text/dseq "data/soi.csv")
+      workdir (rand-file "tmp")
+      features [:A00200 :AGI_STUB
+                :NUMDEP :MARS2]]
+  (h/fold conf input workdir #'feature-scales features))
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:A00200</span>","value":":A00200"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>37290.58880658831</span>","value":"37290.58880658831"}],"value":"[:mean 37290.58880658831]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>89965.99846545057</span>","value":"89965.99846545057"}],"value":"[:sd 89965.99846545057]"}],"value":"{:mean 37290.58880658831, :sd 89965.99846545057}"}],"value":"[:A00200 {:mean 37290.58880658831, :sd 89965.99846545057}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:AGI_STUB</span>","value":":AGI_STUB"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>3.499939975269811</span>","value":"3.499939975269811"}],"value":"[:mean 3.499939975269811]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1.7079052308118499</span>","value":"1.7079052308118499"}],"value":"[:sd 1.7079052308118499]"}],"value":"{:mean 3.499939975269811, :sd 1.7079052308118499}"}],"value":"[:AGI_STUB {:mean 3.499939975269811, :sd 1.7079052308118499}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:NUMDEP</span>","value":":NUMDEP"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>581.8504423822615</span>","value":"581.8504423822615"}],"value":"[:mean 581.8504423822615]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>1309.1973488789338</span>","value":"1309.1973488789338"}],"value":"[:sd 1309.1973488789338]"}],"value":"{:mean 581.8504423822615, :sd 1309.1973488789338}"}],"value":"[:NUMDEP {:mean 581.8504423822615, :sd 1309.1973488789338}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:MARS2</span>","value":":MARS2"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:mean</span>","value":":mean"},{"type":"html","content":"<span class='clj-double'>317.0412009748016</span>","value":"317.0412009748016"}],"value":"[:mean 317.0412009748016]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:sd</span>","value":":sd"},{"type":"html","content":"<span class='clj-double'>533.4496892658627</span>","value":"533.4496892658627"}],"value":"[:sd 533.4496892658627]"}],"value":"{:mean 317.0412009748016, :sd 533.4496892658627}"}],"value":"[:MARS2 {:mean 317.0412009748016, :sd 533.4496892658627}]"}],"value":"{:A00200 {:mean 37290.58880658831, :sd 89965.99846545057}, :AGI_STUB {:mean 3.499939975269811, :sd 1.7079052308118499}, :NUMDEP {:mean 581.8504423822615, :sd 1309.1973488789338}, :MARS2 {:mean 317.0412009748016, :sd 533.4496892658627}}"}
+;; <=
+
+;; **
+;;; It should be pretty simple to write a function that performs gradient descent with Hadoop
+;; **
+
+;; @@
+(defn hadoop-gradient-descent
+  [conf input-file workdir]
+  (let [features [:A00200 :AGI_STUB
+                  :NUMDEP :MARS2]
+        fcount (inc (count features))
+        coefs (vec (repeat fcount 0))
+        input (text/dseq input-file)
+        options {:column-names column-names
+                 :features features
+                 :coefs coefs
+                 :fy :A02300
+                 :alpha 1e-3}
+        factors (h/fold conf input
+                        (rand-file workdir)
+                        #'feature-scales
+                        features)
+        descend (fn [coefs]
+                  (h/fold conf input
+                          (rand-file workdir)
+                          #'gradient-descent-fold
+                          (merge options
+                                 {:coefs coefs
+                                  :factors factors})))]
+    (take 5 (iterate descend coefs))))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;cljds.ch5.ws/hadoop-gradient-descent</span>","value":"#'cljds.ch5.ws/hadoop-gradient-descent"}
+;; <=
+
+;; @@
+(let [workdir "tmp"
+      out-file (rand-file workdir)]
+  (hadoop-gradient-descent (conf/ig) "data/soi.csv" workdir))
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-long'>0</span>","value":"0"},{"type":"html","content":"<span class='clj-long'>0</span>","value":"0"},{"type":"html","content":"<span class='clj-long'>0</span>","value":"0"},{"type":"html","content":"<span class='clj-long'>0</span>","value":"0"},{"type":"html","content":"<span class='clj-long'>0</span>","value":"0"}],"value":"[0 0 0 0 0]"},{"type":"list-like","open":"<span class='clj-list'>(</span>","close":"<span class='clj-list'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-double'>0.41967862159209596</span>","value":"0.41967862159209596"},{"type":"html","content":"<span class='clj-double'>0.3885668071842649</span>","value":"0.3885668071842649"},{"type":"html","content":"<span class='clj-double'>-0.3017941080728715</span>","value":"-0.3017941080728715"},{"type":"html","content":"<span class='clj-double'>0.9019088413094297</span>","value":"0.9019088413094297"},{"type":"html","content":"<span class='clj-double'>0.6618210978550285</span>","value":"0.6618210978550285"}],"value":"(0.41967862159209596 0.3885668071842649 -0.3017941080728715 0.9019088413094297 0.6618210978550285)"},{"type":"list-like","open":"<span class='clj-list'>(</span>","close":"<span class='clj-list'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-double'>0.8389375645625825</span>","value":"0.8389375645625825"},{"type":"html","content":"<span class='clj-double'>0.775780964205865</span>","value":"0.775780964205865"},{"type":"html","content":"<span class='clj-double'>-0.6031307511376215</span>","value":"-0.6031307511376215"},{"type":"html","content":"<span class='clj-double'>1.8021346906760685</span>","value":"1.8021346906760685"},{"type":"html","content":"<span class='clj-double'>1.321973394743255</span>","value":"1.321973394743255"}],"value":"(0.8389375645625825 0.775780964205865 -0.6031307511376215 1.8021346906760685 1.321973394743255)"},{"type":"list-like","open":"<span class='clj-list'>(</span>","close":"<span class='clj-list'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-double'>1.257777248590126</span>","value":"1.257777248590126"},{"type":"html","content":"<span class='clj-double'>1.1616459728321267</span>","value":"1.1616459728321267"},{"type":"html","content":"<span class='clj-double'>-0.9040106147748992</span>","value":"-0.9040106147748992"},{"type":"html","content":"<span class='clj-double'>2.7006813394831197</span>","value":"2.7006813394831197"},{"type":"html","content":"<span class='clj-double'>1.9804609238369717</span>","value":"1.9804609238369717"}],"value":"(1.257777248590126 1.1616459728321267 -0.9040106147748992 2.7006813394831197 1.9804609238369717)"},{"type":"list-like","open":"<span class='clj-list'>(</span>","close":"<span class='clj-list'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-double'>1.6761980929336326</span>","value":"1.6761980929336326"},{"type":"html","content":"<span class='clj-double'>1.5461653262331074</span>","value":"1.5461653262331074"},{"type":"html","content":"<span class='clj-double'>-1.2044343834120559</span>","value":"-1.2044343834120559"},{"type":"html","content":"<span class='clj-double'>3.5975525701869944</span>","value":"3.5975525701869944"},{"type":"html","content":"<span class='clj-double'>2.6372877086048367</span>","value":"2.6372877086048367"}],"value":"(1.6761980929336326 1.5461653262331074 -1.2044343834120559 3.5975525701869944 2.6372877086048367)"}],"value":"([0 0 0 0 0] (0.41967862159209596 0.3885668071842649 -0.3017941080728715 0.9019088413094297 0.6618210978550285) (0.8389375645625825 0.775780964205865 -0.6031307511376215 1.8021346906760685 1.321973394743255) (1.257777248590126 1.1616459728321267 -0.9040106147748992 2.7006813394831197 1.9804609238369717) (1.6761980929336326 1.5461653262331074 -1.2044343834120559 3.5975525701869944 2.6372877086048367))"}
+;; <=
+
+;; **
+;;; ## Stochastic Gradient Descent
+;;; 
+;;; **SGD** is like regular Gradient Descent, but weights are continually updated as the input data is processed in mini-batches.
+;; **
+
+;; @@
+(defn stochastic-gradient-descent
+  [options data]
+  (let [batches (->> (into [] data)
+                     (shuffle)
+                     (partition 250))
+        descend (fn [coefs batch]
+                  (->> (gradient-descent-fold
+                         (assoc options :coefs coefs))
+                       (t/tesser (chunks batch))))]
+    (reductions descend (:coefs options) batches)))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;cljds.ch5.ws/stochastic-gradient-descent</span>","value":"#'cljds.ch5.ws/stochastic-gradient-descent"}
+;; <=
+
+;; @@
+(let [features [:A00200 :AGI_STUB
+                :NUMDEP :MARS2]
+      fcount (inc (count features))
+      coefs (vec (repeat fcount 0))
+      data (chunks (iota/seq "data/soi.csv"))
+      factors (->> (feature-scales features)
+                   (t/tesser data))
+      options {:fy :A02300 :features features
+               :factors factors :coefs coefs
+               :alpha 1e-3}
+      ys (stochastic-gradient-descent options data)
+      xs (range (count ys))]
+  (-> (c/xy-plot xs (map first ys))
+      (c/add-lines xs (map #(nth % 1) ys))
+      (c/add-lines xs (map #(nth % 2) ys))
+      (c/add-lines xs (map #(nth % 3) ys))
+      (c/add-lines xs (map #(nth % 4) ys))
+      (i/view)))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-unkown'>#object[org.jfree.chart.ChartFrame 0x12e3b1aa &quot;org.jfree.chart.ChartFrame[frame0,0,0,500x400,layout=java.awt.BorderLayout,title=Incanter Plot,resizable,normal,defaultCloseOperation=DISPOSE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,500x400,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]&quot;]</span>","value":"#object[org.jfree.chart.ChartFrame 0x12e3b1aa \"org.jfree.chart.ChartFrame[frame0,0,0,500x400,layout=java.awt.BorderLayout,title=Incanter Plot,resizable,normal,defaultCloseOperation=DISPOSE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,500x400,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]\"]"}
 ;; <=
 
 ;; @@

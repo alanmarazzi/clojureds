@@ -5,8 +5,10 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [incanter/incanter "1.5.7"]
-                 [cc.artifice/clj-ml "0.8.1"]]
+                 [cc.artifice/clj-ml "0.8.1"]
+                 [incanter-gorilla "0.1.0"]]
   :resource-paths ["resources" "data"]
+  :plugins [[lein-gorilla "0.4.0"]]
   :aot [cljds.ch4.core]
   :main cljds.ch4.core
   :repl-options {:init-ns cljds.ch4.examples}
