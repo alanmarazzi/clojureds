@@ -13,7 +13,19 @@
             [incanter.core :as i]
             [stemmers.core :as stemmer]
             [incanter.stats :as s]
-            [me.raynes.fs :as fs])
+            [me.raynes.fs :as mfs]
+            [parkour (conf :as conf) (fs :as fs)
+             ,       (toolbox :as ptb) (tool :as tool)]
+            [parkour.graph :as pg]
+            [parkour.io (dseq :as dseq) (text :as text) (avro :as mra)
+             ,          (seqf :as seqf)
+             ,          (dsink :as dsink)]
+            [parkour.io.dux :as dux]
+            [parkour.io.dval :as dval]
+            [parkour.mapreduce :as mr]
+			[parkour.wrapper :refer [Wrapper]]
+            [clojure.core.reducers :as r]
+            [transduce.reducers :as tr])
   (:import [org.apache.lucene.benchmark.utils ExtractReuters]
            [org.apache.mahout.text
             SequenceFilesFromDirectory]))
@@ -176,21 +188,21 @@
 (add-term-to-dict! dictionary "love")
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-atom'>#object[clojure.lang.Atom 0xc404b8e {:status :ready, :val {:count 2, :words {}, :terms {&quot;love&quot; 0, &quot;music&quot; 1}}}]</span>","value":"#object[clojure.lang.Atom 0xc404b8e {:status :ready, :val {:count 2, :words {}, :terms {\"love\" 0, \"music\" 1}}}]"}
+;;; {"type":"html","content":"<span class='clj-atom'>#object[clojure.lang.Atom 0x77413334 {:status :ready, :val {:count 1, :words {}, :terms {&quot;love&quot; 0}}}]</span>","value":"#object[clojure.lang.Atom 0x77413334 {:status :ready, :val {:count 1, :words {}, :terms {\"love\" 0}}}]"}
 ;; <=
 
 ;; @@
 (add-term-to-dict! dictionary "music")
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-atom'>#object[clojure.lang.Atom 0xc404b8e {:status :ready, :val {:count 2, :words {}, :terms {&quot;love&quot; 0, &quot;music&quot; 1}}}]</span>","value":"#object[clojure.lang.Atom 0xc404b8e {:status :ready, :val {:count 2, :words {}, :terms {\"love\" 0, \"music\" 1}}}]"}
+;;; {"type":"html","content":"<span class='clj-atom'>#object[clojure.lang.Atom 0x77413334 {:status :ready, :val {:count 2, :words {}, :terms {&quot;love&quot; 0, &quot;music&quot; 1}}}]</span>","value":"#object[clojure.lang.Atom 0x77413334 {:status :ready, :val {:count 2, :words {}, :terms {\"love\" 0, \"music\" 1}}}]"}
 ;; <=
 
 ;; @@
 (add-term-to-dict! dictionary "love")
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-atom'>#object[clojure.lang.Atom 0xc404b8e {:status :ready, :val {:count 2, :words {}, :terms {&quot;love&quot; 0, &quot;music&quot; 1}}}]</span>","value":"#object[clojure.lang.Atom 0xc404b8e {:status :ready, :val {:count 2, :words {}, :terms {\"love\" 0, \"music\" 1}}}]"}
+;;; {"type":"html","content":"<span class='clj-atom'>#object[clojure.lang.Atom 0x77413334 {:status :ready, :val {:count 2, :words {}, :terms {&quot;love&quot; 0, &quot;music&quot; 1}}}]</span>","value":"#object[clojure.lang.Atom 0x77413334 {:status :ready, :val {:count 2, :words {}, :terms {\"love\" 0, \"music\" 1}}}]"}
 ;; <=
 
 ;; **
@@ -250,7 +262,7 @@
 ;; @@
 ;; ->
 ;;; Document:  [nyse s phelan says nyse will continue program trading curb until volume slows]
-;;; Dictionary:  #object[clojure.lang.Atom 0x7913fd27 {:status :ready, :val {:count 12, :terms {s 1, curb 8, phelan 2, says 3, trading 7, nyse 0, until 9, continue 5, volume 10, will 4, slows 11, program 6}}}]
+;;; Dictionary:  #object[clojure.lang.Atom 0x56874a8c {:status :ready, :val {:count 12, :terms {s 1, curb 8, phelan 2, says 3, trading 7, nyse 0, until 9, continue 5, volume 10, will 4, slows 11, program 6}}}]
 ;;; Vector:  [2 1 1 1 1 1 1 1 1 1 1 1]
 ;;; 
 ;; <-
@@ -411,7 +423,7 @@
   (clusters [0 1 0] m))
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-unkown'> A 2x3 matrix\n -------------\n 7.00e+00  8.00e+00  9.00e+00 \n 1.00e+00  2.00e+00  3.00e+00 \n</span>","value":" A 2x3 matrix\n -------------\n 7.00e+00  8.00e+00  9.00e+00 \n 1.00e+00  2.00e+00  3.00e+00 \n"}
+;;; {"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-unkown'> A 2x3 matrix\n -------------\n 7.00e+00  8.00e+00  9.00e+00 \n 1.00e+00  2.00e+00  3.00e+00 \n</span>","value":" A 2x3 matrix\n -------------\n 7.00e+00  8.00e+00  9.00e+00 \n 1.00e+00  2.00e+00  3.00e+00 \n"},{"type":"html","content":"<span class='clj-unkown'> A 1x3 matrix\n -------------\n 4.00e+00  5.00e+00  6.00e+00 \n</span>","value":" A 1x3 matrix\n -------------\n 4.00e+00  5.00e+00  6.00e+00 \n"}],"value":"( A 2x3 matrix\n -------------\n 7.00e+00  8.00e+00  9.00e+00 \n 1.00e+00  2.00e+00  3.00e+00 \n  A 1x3 matrix\n -------------\n 4.00e+00  5.00e+00  6.00e+00 \n)"}
 ;; <=
 
 ;; @@
@@ -484,7 +496,7 @@ clustered))))
 
 ;; @@
 (def test-k-means
-(let [docs (fs/glob "data/reuters-text/*.txt")
+(let [docs (mfs/glob "data/reuters-text/*.txt")
       doc-count 100
       k 5
       tokenized (->> (map slurp docs)
@@ -539,7 +551,7 @@ clustered))))
                  5)
 ;; @@
 ;; =>
-;;; {"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}],"value":"( A 1x2995 matrix\n ----------------\n 2.27e-01  3.18e-01  2.27e-01  .  0.00e+00  0.00e+00  0.00e+00 \nN: 22\nTerms: ()\n A 1x2995 matrix\n ----------------\n 0.00e+00  0.00e+00  3.33e-02  .  0.00e+00  0.00e+00  0.00e+00 \nN: 30\nTerms: ()\nnil  A 1x2995 matrix\n ----------------\n 0.00e+00  0.00e+00  9.52e-02  .  0.00e+00  0.00e+00  0.00e+00 \nN: 21\nTerms: ()\nnil  A 1x2995 matrix\n ----------------\n 0.00e+00  0.00e+00  0.00e+00  .  3.70e-02  3.70e-02  3.70e-02 \nN: 27\nTerms: ()\nnil nil)"}
+;;; {"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}],"value":"(N: 7\nTerms: (000 dlr mln for ct)\nN: 9\nTerms: (said oil price opec it)\nnil N: 65\nTerms: (said for pct year bank)\nnil N: 17\nTerms: (said offer for would reuter)\nnil N: 2\nTerms: (new nrc plan plant china)\nnil nil)"}
 ;; <=
 
 ;; **
@@ -583,7 +595,7 @@ clustered))))
 (uuid)
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-string'>&quot;f12fa1d6-0062-48d2-9610-6d2c62a1ac5e&quot;</span>","value":"\"f12fa1d6-0062-48d2-9610-6d2c62a1ac5e\""}
+;;; {"type":"html","content":"<span class='clj-string'>&quot;e2feffa1-fe0a-46e1-ae49-ba4f5e48e29f&quot;</span>","value":"\"e2feffa1-fe0a-46e1-ae49-ba4f5e48e29f\""}
 ;; <=
 
 ;; **
@@ -602,5 +614,32 @@ clustered))))
   [documents]
   (->> documents
        (r/mapcat (comp distinct stemmer/stems))
-       (r/map #(vector % 1))))
+	   (r/map #(vector % 1))))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;cljds.ch6.ws/document-count-m</span>","value":"#'cljds.ch6.ws/document-count-m"}
+;; <=
+
+;; @@
+(defn unique-index-r
+  {::mr/source-as :keyvalgroups
+   ::mr/sink-as dux/named-keyvals}
+  [coll]
+  (let [global-offset (conf/get-long mr/*context*
+                                     "mapred.task.partition" -1)]
+    (tr/mapcat-state
+      (fn [local-offset [word doc-counts]]
+        [(inc local-offset)
+         (if (identical? ::finished word)
+           [[:counts [global-offset local-offset]]]
+           [[:data [word [[global-offset local-offset]
+                          (apply + doc-counts)]]]])])
+      0 (r/mapcat identity [coll [[::finished nil]]]))))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;cljds.ch6.ws/unique-index-r</span>","value":"#'cljds.ch6.ws/unique-index-r"}
+;; <=
+
+;; @@
+
 ;; @@
