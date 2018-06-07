@@ -16,8 +16,7 @@
   :profiles {:dev
              {:dependencies [[org.clojure/tools.cli "0.3.1"]]
               :repl-options {:init-ns ch7.core}
-              ;:resource-paths ["data/ml-100k"]
-              }
+              :resource-paths ["data/ml-100k"]}
              :provided
              {:dependencies
               [[org.apache.spark/spark-mllib_2.10 "1.1.0" :exclusions [com.google.guava/guava]]
