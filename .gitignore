@@ -4,3 +4,5 @@
 .idea/
 .gorilla*
 reuters*
+ch7/data/*
+.ipynb_checkpoints/
