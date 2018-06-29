@@ -12,7 +12,7 @@
                  [gorillalabs/sparkling "1.2.2"]
                  [org.apache.spark/spark-core_2.11 "1.3.1"]
                  [org.apache.spark/spark-graphx_2.11 "1.3.1"]]
-  :plugins [[lein-gorilla "0.4.0"]]
+  :plugins [[dtolpin/lein-gorilla "0.4.1-SNAPSHOT"]]
   :main ^:skip-aot ch8.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}

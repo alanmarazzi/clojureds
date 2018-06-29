@@ -1,0 +1,105 @@
+(ns ch8.ws
+  (:require [gorilla-plot.core :as plot]
+            [clojure.string :as str]
+            [clojure.java.io :as io]
+            [loom-gorilla.render :refer :all]
+            [loom
+             [graph :as loom]
+             [io :as lio]
+             [alg-generic :as gen]
+             [alg :as alg]
+             [gen :as generate]
+             [attr :as attr]
+			 [label :as label]]
+             [incanter.charts :as c]))
+(defn to-long [l]
+  (Long/parseLong l))
+
+(defn line->edge [line]
+  (->> (str/split line #" ")
+	   (mapv to-long)))
+
+(defn load-edges [file]
+  (->> (io/resource file)
+       (io/reader)
+       (line-seq)
+	   (map line->edge)))
+(load-edges "twitter/98801140.edges")
+(->> (load-edges "twitter/98801140.edges")
+     (apply loom/graph)
+     (loom-view))
+(->> (load-edges "twitter/98801140.edges")
+     (apply loom/digraph)
+     (loom-view))
+(->> (load-edges "twitter/98801140.edges")
+     (apply loom/weighted-digraph)
+     (loom-view))
+(defn euler-tour?
+  [graph]
+  (let [degree (partial loom/out-degree graph)]
+    (->> (loom/nodes graph)
+         (filter (comp odd? degree))
+         (count)
+         (contains? #{0 2}))))
+(let [graph (->> (load-edges "twitter/98801140.edges")
+                 (apply loom/digraph))]
+  (alg/bf-traverse graph 100742942))
+(let [graph (->> (load-edges "twitter/98801140.edges")
+                 (apply loom/digraph))]
+  (alg/pre-traverse graph 100742942))
+(->> (load-edges "twitter/396721965.edges")
+     (apply loom/digraph)
+     (loom-view))
+(let [graph (->> (load-edges "twitter/396721965.edges")
+                 (apply loom/digraph))]
+  (alg/bf-path graph 75914648 32122637))
+(let [graph (->> (load-edges "twitter/396721965.edges")
+                 (apply loom/weighted-digraph))]
+  (-> (loom/add-edges graph [28719244 163629705 100])
+       (alg/dijkstra-path 75914648 32122637)))
+(let [graph (->> (load-edges "twitter/396721965.edges")
+                 (apply loom/weighted-graph))]
+  (-> (alg/prim-mst graph)
+      (loom-view)))
+(let [graph (->> (load-edges "twitter/396721965.edges")
+                 (apply loom/weighted-graph))]
+  (-> (loom/add-edges graph [28719244 163629705 100])
+      (alg/prim-mst)
+      (loom-view)))
+(->> (load-edges "twitter/15053535.edges")
+     (apply loom/graph)
+     (loom-view))
+(->> (load-edges "twitter/15053535.edges")
+     (apply loom/graph)
+     (alg/connected-components))
+(->> (load-edges "twitter/15053535.edges")
+     (apply loom/digraph)
+     (loom-view))
+(->> (load-edges "twitter/15053535.edges")
+     (apply loom/digraph)
+     (alg/scc)
+     (count))
+(->> (load-edges "twitter/15053535.edges")
+     (apply loom/digraph)
+     (alg/scc)
+     (sort-by count >)
+     (first))
+(->> (load-edges "twitter_combined.txt")
+     (apply loom/digraph)
+     (alg/density)
+     (double))
+(let [graph (->> (load-edges "twitter_combined.txt")
+                 (apply loom/digraph))
+      out-degrees (map #(loom/out-degree graph %)
+                       (loom/nodes graph))]
+  (plot/histogram out-degrees :bins 50 :plot-size 600))
+(let [graph (->> (load-edges "twitter_combined.txt")
+                 (apply loom/digraph))
+      in-degrees (map #(loom/in-degree graph %)
+                       (loom/nodes graph))]
+  (plot/histogram in-degrees :bins 50 :plot-size 600))
+(let [graph (generate/gen-rand (loom/graph) 10000 1000000)
+      out-degrees (map #(loom/out-degree graph %)
+                       (loom/nodes graph))]
+  (plot/histogram out-degrees :bins 50 :plot-size 600))
+
