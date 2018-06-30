@@ -11,7 +11,11 @@
              [gen :as generate]
              [attr :as attr]
 			 [label :as label]]
-             [incanter.charts :as c]))
+            [clojure.set :as set]            
+            [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.stats :as s]
+			[incanter.svg :as svg]))
 (defn to-long [l]
   (Long/parseLong l))
 
@@ -102,4 +106,18 @@
       out-degrees (map #(loom/out-degree graph %)
                        (loom/nodes graph))]
   (plot/histogram out-degrees :bins 50 :plot-size 600))
+(def digraph 
+  (atom (->> (load-edges "twitter_combined.txt")
+             (apply loom/digraph))))
+(let [graph @digraph
+      out-degrees (map #(loom/out-degree graph %)
+                       (loom/nodes graph))
+      points (frequencies out-degrees)]
+  (as-> points p
+        (filter #(not= 0 (key %)) p)
+        (plot/list-plot p :plot-size 600
+                        :symbol-size 40
+                        :opacity 0.5)
+        (assoc-in p [:content :scales 0 :type] "log")
+        (assoc-in p [:content :scales 1 :type] "log")))
 
