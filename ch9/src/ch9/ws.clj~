@@ -1,0 +1,22 @@
+(ns ch9.ws
+  (:require [gorilla-plot.core :as plot]
+            [incanter.charts :as c]
+            [incanter.core :as i ]
+            [incanter.datasets :as d]
+            [incanter.stats :as s]
+            [incanter.svg :as svg]
+			[succession.core :as sc]
+            [clojure.pprint :as pp]))
+(->> (d/get-dataset :longley)
+     :rows
+     (pp/print-table))
+(let [data (:rows (d/get-dataset :longley))]
+  (as-> data d
+        (map (juxt :x6 :x5) d)
+        (plot/list-plot d :plot-size 600)))
+(let [data (d/get-dataset :longley)
+      rows (:rows data)
+      model (s/linear-model (i/$ :x5 data)
+                            (i/$ :x6 data))]
+  (println (:coefs model)))
+
