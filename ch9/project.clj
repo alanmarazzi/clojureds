@@ -10,5 +10,4 @@
                  [clatrix "0.5.0"]
                  [org.apache.commons/commons-math3 "3.6.1"]
                  [huri "0.10.0-SNAPSHOT"]]
-  :plugins [[lein-gorilla "0.4.1-SNAPSHOT"]]
-  )
+  :plugins [[lein-gorilla "0.4.1-SNAPSHOT"]])
